@@ -628,7 +628,7 @@ footer .f-meta{margin-top:16px;font-size:12px;color:rgba(244,241,234,.42)}
     W=innerWidth;H=innerHeight;
     m=W<640;var t=!m&&W<1000;
     var rest={x:m?W*.62:t?W*.72:W*.66, y:m?H*.16:t?H*.8:H*.78};
-    var land={x:m?W*.74:W*.5, y:m?H*.11:H*.66};
+    var land={x:m?W*.74:W*.5, y:m?H*.11:H*.7};
     // trajetória de bumerangue: arremesso PRA FRENTE (direção dos chevrons),
     // arco por cima, vira no ponto mais distante e volta planando por baixo
     if(m){
@@ -703,7 +703,7 @@ footer .f-meta{margin-top:16px;font-size:12px;color:rgba(244,241,234,.42)}
     var sec=(now-t0)/1000;
     var bob=Math.sin(sec*.8)*8*(1-e);
     var land01=ease(clamp((u-.82)/.18));
-    var s=(1-.55*e)*(1-(m?.45:.6)*land01);
+    var s=(1-.55*e)*(1-(m?.45:.68)*land01);
     var rot=(m?1:-1)*u*720+Math.sin(sec*.5)*3*(1-e);
     var flat=1-.24*e; // no ponto mais distante o disco deita, como visto de lado
     el.classList.toggle('fly',u>.02);

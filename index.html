@@ -637,7 +637,11 @@ footer .f-meta{margin-top:16px;font-size:12px;color:rgba(244,241,234,.42)}
     W=innerWidth;H=innerHeight;
     m=W<640;var t=!m&&W<1000;
     var rest={x:m?W*.55:t?W*.72:W*.66, y:m?H*.87:t?H*.8:H*.78};
-    var land={x:m?W*.6:W*.68, y:m?H*.74:H*.75};
+    // pouso: logo acima do rodapé (posição real, não fração da tela)
+    var footEl=document.querySelector('footer');
+    var footVp=footEl?(footEl.offsetTop-(document.documentElement.scrollHeight-H)):H*.8;
+    var mh=(m?W*.42:Math.min(W*.38,450))*.5*(22/30);
+    var land={x:m?W*.6:W*.68, y:Math.min(H*.75, footVp-mh/2-14)};
     // trajetória de bumerangue: arremesso PRA FRENTE (direção dos chevrons),
     // arco por cima, vira no ponto mais distante e volta planando por baixo
     if(m){

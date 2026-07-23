@@ -218,21 +218,28 @@ body{font-family:var(--ff-body);color:var(--graphite);background:var(--paper);fo
 .paper .foot{margin-top:9px;text-align:center;font:600 9px/1.6 var(--ff-body);letter-spacing:.2em;color:var(--muted);text-transform:uppercase}
 
 /* vídeo do alívio no CTA final */
-.final-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 25%;
-  z-index:0;filter:saturate(.6) brightness(.55) contrast(1.05)}
+.final-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:30% 30%;
+  z-index:0;filter:saturate(.78) brightness(.82) contrast(1.04)}
+@media(max-width:640px){.final-video{object-position:50% 25%}}
+/* véu que clareia quando o bumerangue pousa (o amanhecer) */
+.final-dawn{position:absolute;inset:0;z-index:1;pointer-events:none;background:rgba(6,18,12,.52);will-change:opacity}
 @media(prefers-reduced-motion:reduce){.final-video{display:none}}
 
 /* ---------- cta final ---------- */
-.final{background:var(--emerald-900);color:var(--on-dark);text-align:center;padding-block:clamp(80px,11vw,130px);position:relative;overflow:hidden}
+.final{background:var(--emerald-900);color:var(--on-dark);text-align:left;padding-block:clamp(80px,11vw,130px);position:relative;overflow:hidden}
 .final::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
   background:
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.05 0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E"),
-    linear-gradient(rgba(6,18,12,.78),rgba(6,18,12,.86)),
-    radial-gradient(60% 60% at 50% 100%,rgba(166,130,74,.18),transparent 70%)}
+    linear-gradient(rgba(6,18,12,.22),rgba(6,18,12,.28)),
+    linear-gradient(90deg,rgba(5,18,12,.92) 0%,rgba(5,18,12,.74) 38%,rgba(5,18,12,.38) 60%,rgba(5,18,12,.1) 80%,transparent 92%),
+    linear-gradient(0deg,rgba(5,18,12,.55),transparent 30%)}
+@media(max-width:640px){.final::before{background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.05 0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E"),
+    linear-gradient(180deg,rgba(5,18,12,.32) 0%,rgba(5,18,12,.16) 30%,rgba(5,18,12,.7) 62%,rgba(5,18,12,.94) 100%)}}
 .final .container{position:relative;z-index:2}
-.final h2{font-family:var(--ff-display);font-weight:400;color:#F7F4EE;font-size:clamp(28px,4.4vw,52px);letter-spacing:-.025em;line-height:1.05;max-width:18ch;margin-inline:auto}
-.final .sub{margin:22px auto 0;max-width:46ch;color:var(--on-dark-dim);font-size:16.5px}
-.final .guarantee{margin:28px auto 0;max-width:44ch;text-align:center}
+.final h2{font-family:var(--ff-display);font-weight:400;color:#F7F4EE;font-size:clamp(28px,4.4vw,52px);letter-spacing:-.025em;line-height:1.05;max-width:15ch;text-shadow:0 2px 30px rgba(0,0,0,.4)}
+.final .sub{margin:22px 0 0;max-width:42ch;color:rgba(244,241,234,.8);font-size:16.5px}
+.final .guarantee{margin:28px 0 0;max-width:44ch;text-align:left}
 .final .guarantee span{display:inline-block;color:var(--gold);font-weight:600;font-size:clamp(15px,1.7vw,19px);line-height:1.5;letter-spacing:.005em;padding:14px 6px;border-top:1px solid rgba(166,130,74,.4);border-bottom:1px solid rgba(166,130,74,.4)}
 .final .btn{margin-top:38px}
 .final .signature{margin-top:44px;font-family:var(--ff-display);font-weight:400;font-size:clamp(15px,1.8vw,19px);letter-spacing:.02em;color:var(--gold)}
@@ -565,8 +572,9 @@ footer .f-meta{margin-top:16px;font-size:12px;color:rgba(244,241,234,.42)}
   <video class="final-video" id="finalVideo" autoplay muted loop playsinline preload="metadata" poster="assets/final-poster.jpg" aria-hidden="true">
     <source src="assets/final.mp4" type="video/mp4">
   </video>
+  <div class="final-dawn" id="finalDawn" aria-hidden="true"></div>
   <div class="container">
-    <span class="overline" style="justify-content:center;color:var(--gold)"><b class="ch">05</b>O ponto de partida</span>
+    <span class="overline" style="color:var(--gold)"><b class="ch">05</b>O ponto de partida</span>
     <h2 style="margin-top:22px">Descubra o que a sua empresa pode recuperar.</h2>
     <p class="sub">Fale com a Bumerangue no WhatsApp e receba a análise do seu CNPJ.</p>
     <p class="guarantee"><span>Se você não tiver nada para receber, sua análise não terá nenhum custo.</span></p>
@@ -617,6 +625,7 @@ footer .f-meta{margin-top:16px;font-size:12px;color:rgba(244,241,234,.42)}
   var duv=document.getElementById('duvidas');
   var vid=document.getElementById('heroVideo');
   var vidF=document.getElementById('finalVideo');
+  var dawn=document.getElementById('finalDawn');
   var glow=document.getElementById('launchGlow');
   var prinSec=document.getElementById('documentos');
   var prinPaper=document.getElementById('prinPaper');
@@ -628,7 +637,7 @@ footer .f-meta{margin-top:16px;font-size:12px;color:rgba(244,241,234,.42)}
     W=innerWidth;H=innerHeight;
     m=W<640;var t=!m&&W<1000;
     var rest={x:m?W*.55:t?W*.72:W*.66, y:m?H*.87:t?H*.8:H*.78};
-    var land={x:m?W*.84:W*.86, y:m?H*.05:H*.24};
+    var land={x:m?W*.84:W*.8, y:m?H*.05:H*.56};
     // trajetória de bumerangue: arremesso PRA FRENTE (direção dos chevrons),
     // arco por cima, vira no ponto mais distante e volta planando por baixo
     if(m){
@@ -708,10 +717,13 @@ footer .f-meta{margin-top:16px;font-size:12px;color:rgba(244,241,234,.42)}
     var flat=1-.24*e; // no ponto mais distante o disco deita, como visto de lado
     el.classList.toggle('fly',u>.02);
     if(glow){
-      var g=u<.2?Math.sin(Math.PI*clamp(u/.2)):0;
+      var g=0,gx=pts[0].x,gy=pts[0].y;
+      if(u<.2){g=Math.sin(Math.PI*clamp(u/.2))}
+      else if(land01>0){g=Math.sin(Math.PI*land01)*.85;gx=pts[pts.length-1].x;gy=pts[pts.length-1].y}
       glow.style.opacity=(g*.65).toFixed(3);
-      if(g>0){glow.style.transform='translate('+pts[0].x.toFixed(0)+'px,'+pts[0].y.toFixed(0)+'px) scale('+(1+g*.5).toFixed(2)+')'}
+      if(g>0){glow.style.transform='translate('+gx.toFixed(0)+'px,'+gy.toFixed(0)+'px) scale('+(1+g*.5).toFixed(2)+')'}
     }
+    if(dawn){dawn.style.opacity=(1-.75*land01).toFixed(3)}
     if(vid&&hero){
       if(scrollY>hero.offsetHeight){if(!vid.paused)vid.pause()}
       else if(vid.paused&&!reduced){var pp=vid.play();if(pp&&pp.catch)pp.catch(function(){})}
